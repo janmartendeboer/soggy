@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace Janmartendeboer\Soggy\Recipe;
 
 use Generator;
+use JsonSerializable;
 use Measurements\Dimension;
 use Measurements\Measurement;
 use Measurements\Quantities\Volume;
 use Measurements\Units\UnitVolume;
 
-final class Recipe
+final class Recipe implements JsonSerializable
 {
     /** @var array<string,IngredientMeasurement> */
     private array $ingredients = [];
@@ -43,5 +44,20 @@ final class Recipe
             ),
             new Volume(0, $dimension)
         );
+    }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            'name' => $this->name,
+            'ingredients' => array_reduce(
+                $this->ingredients,
+                static fn (array $carry, IngredientMeasurement $ingredientMeasurement) => array_replace(
+                    $carry,
+                    [$ingredientMeasurement->ingredient->name => $ingredientMeasurement->measurement->toString()]
+                ),
+                []
+            )
+        ];
     }
 }
