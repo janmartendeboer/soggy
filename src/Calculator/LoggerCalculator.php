@@ -20,8 +20,9 @@ final class LoggerCalculator implements CalculatorInterface
 
         $this->logger->info(
             sprintf(
-                "Recipe:\t%s\t[Score: %d]",
+                "Recipe:\t%s\t[Volume: %s] [Score: %d]",
                 json_encode($recipe),
+                $recipe->getVolume(),
                 $result
             )
         );
