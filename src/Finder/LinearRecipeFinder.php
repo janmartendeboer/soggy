@@ -82,7 +82,7 @@ final class LinearRecipeFinder implements RecipeFinderInterface
                 fn (Ingredient $ingredient) => $ingredient !== $main
             );
 
-            for ($value = 0; $value <= $targetUnits; $value++) {
+            for ($value = $targetUnits; $value > 0; $value--) {
                 $childAxes = self::createMatrix($targetUnits - $value, ...$otherIngredients);
                 foreach ($childAxes as $options) {
                     yield [[$main, $value], ...$options];
