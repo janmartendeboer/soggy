@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Janmartendeboer\Soggy\Tests\Integration;
 
+use Janmartendeboer\Soggy\Calculator\YummyCalculator;
 use Janmartendeboer\Soggy\Recipe\Ingredient;
 use Janmartendeboer\Soggy\Recipe\IngredientMeasurement;
 use Janmartendeboer\Soggy\Recipe\Recipe;
@@ -51,5 +52,13 @@ class RecipeVariationsTest extends TestCase
         );
 
         self::assertRecipeHolds100Teaspoons($recipe);
+
+        $calculator = new YummyCalculator($dimension);
+
+        self::assertEquals(
+            62842880,
+            $calculator->calculateScore($recipe),
+            'Recipe must have a score of exactly 62842880 points.'
+        );
     }
 }
