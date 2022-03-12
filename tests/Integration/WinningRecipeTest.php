@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * @coversNothing
  */
-class RecipeVariationsTest extends TestCase
+class WinningRecipeTest extends TestCase
 {
     use AssertsVolume;
 
@@ -27,12 +27,12 @@ class RecipeVariationsTest extends TestCase
         $recipe->setIngredientMeasurement(
             new IngredientMeasurement(
                 new Ingredient(
-                    name: 'Butterscotch',
-                    capacity: -1,
+                    name:       'Butterscotch',
+                    capacity:   -1,
                     durability: -2,
-                    flavor: 6,
-                    texture: 3,
-                    calories: 8
+                    flavor:     6,
+                    texture:    3,
+                    calories:   8
                 ),
                 new Volume(44, $dimension)
             )
@@ -40,12 +40,12 @@ class RecipeVariationsTest extends TestCase
         $recipe->setIngredientMeasurement(
             new IngredientMeasurement(
                 new Ingredient(
-                    name: 'Cinnamon',
-                    capacity: 2,
+                    name:       'Cinnamon',
+                    capacity:   2,
                     durability: 3,
-                    flavor: -2,
-                    texture: -1,
-                    calories: 3
+                    flavor:     -2,
+                    texture:    -1,
+                    calories:   3
                 ),
                 new Volume(56, $dimension)
             )
