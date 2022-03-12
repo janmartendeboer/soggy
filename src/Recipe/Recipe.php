@@ -23,7 +23,7 @@ final class Recipe
     }
 
     /**
-     * @yield IngredientMeasurement
+     * @return Generator&IngredientMeasurement[]
      */
     public function getIngredientMeasurements(): Generator
     {
