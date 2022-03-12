@@ -1,0 +1,30 @@
+{
+    "name": "janmartendeboer/soggy",
+    "description": "Find the perfect milk-dunking cookie recipe",
+    "type": "project",
+    "license": "Unlicense",
+    "authors": [
+        {
+            "name": "Jan-Marten de Boer",
+            "email": "github@janmarten.name"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php": "^8.1",
+        "nmarfurt/measurements": "^1.4.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "@stable"
+    },
+    "autoload": {
+        "psr-4": {
+            "Janmartendeboer\\Soggy\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Janmartendeboer\\Soggy\\Tests\\": "tests/"
+        }
+    }
+}
