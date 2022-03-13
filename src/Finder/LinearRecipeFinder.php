@@ -15,6 +15,8 @@ use Measurements\Quantities\Volume;
 
 final class LinearRecipeFinder implements RecipeFinderInterface
 {
+    use CreatesDispersionMatrix;
+
     public const RECIPE_NAME = 'Linearly calculated recipe';
 
     public function __construct(
@@ -52,7 +54,8 @@ final class LinearRecipeFinder implements RecipeFinderInterface
         int $targetUnits,
         Ingredient ...$ingredients
     ): Generator {
-        foreach (self::createMatrix($targetUnits, ...$ingredients) as $options) {
+        /** @var Ingredient[]|int[] $options */
+        foreach (self::createDispersionMatrix($targetUnits, ...$ingredients) as $options) {
             $recipe = new Recipe(self::RECIPE_NAME);
             foreach ($options as [$ingredient, $amount]) {
                 $recipe->setIngredientMeasurement(
@@ -63,30 +66,8 @@ final class LinearRecipeFinder implements RecipeFinderInterface
                 );
             }
 
-            yield $recipe;
-        }
-    }
-
-    private static function createMatrix(
-        int $targetUnits,
-        Ingredient ...$ingredients
-    ): Generator {
-        if (count($ingredients) === 0) {
-            yield [];
-            return;
-        }
-
-        foreach ($ingredients as $main) {
-            $otherIngredients = array_filter(
-                $ingredients,
-                fn (Ingredient $ingredient) => $ingredient !== $main
-            );
-
-            for ($value = $targetUnits; $value > 0; $value--) {
-                $childAxes = self::createMatrix($targetUnits - $value, ...$otherIngredients);
-                foreach ($childAxes as $options) {
-                    yield [[$main, $value], ...$options];
-                }
+            if ($recipe->getVolume()->value() > 0) {
+                yield $recipe;
             }
         }
     }
