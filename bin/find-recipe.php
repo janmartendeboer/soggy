@@ -75,3 +75,11 @@ $calculator = new LoggerCalculator(
 );
 $finder = new LinearRecipeFinder($calculator, $targetVolume, $dimension);
 $result = $finder->findRecipe($pantry);
+
+if ($result === null) {
+    fwrite(STDERR, 'No recipe found.' . PHP_EOL);
+    exit(1);
+}
+
+echo json_encode($result, JSON_PRETTY_PRINT) . PHP_EOL;
+echo sprintf('Score: %d', $calculator->calculateScore($result)) . PHP_EOL;
