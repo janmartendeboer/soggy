@@ -63,6 +63,13 @@ class FindMealReplacementTest extends TestCase
                 $calculator->calculateScore($result),
                 'Expected score must match actual score.'
             );
+
+            $caloriesCalculator = new CaloriesCalculator($dimension);
+            self::assertEquals(
+                500,
+                $caloriesCalculator->calculateScore($result),
+                'Recipe must be exactly 500 calories.'
+            );
         }
     }
 
