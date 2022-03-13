@@ -9,6 +9,8 @@ use Measurements\Dimension;
 
 class YummyCalculator implements CalculatorInterface
 {
+    use CalculatesPropertyScore;
+
     private const PROPERTIES = ['capacity', 'durability', 'flavor', 'texture'];
     private const MINIMAL_PROPERTY_SCORE = 0;
 
@@ -18,34 +20,16 @@ class YummyCalculator implements CalculatorInterface
     {
         return array_product(
             array_map(
-                fn (string $property) => self::calculatePropertyScore(
-                    $property,
-                    $recipe,
-                    $this->dimension
+                fn (string $property) => max(
+                    self::MINIMAL_PROPERTY_SCORE,
+                    self::calculatePropertyScore(
+                        $property,
+                        $recipe,
+                        $this->dimension
+                    )
                 ),
                 self::PROPERTIES
             )
         );
-    }
-
-    private static function calculatePropertyScore(
-        string $property,
-        Recipe $recipe,
-        Dimension $dimension
-    ): int {
-        $score = 0;
-
-        foreach ($recipe->getIngredientMeasurements() as $ingredientMeasurement) {
-            $units = (int)$ingredientMeasurement
-                ->measurement
-                ->convertTo($dimension)
-                ->value();
-
-            $score += (
-                $units * $ingredientMeasurement->ingredient->{$property}
-            );
-        }
-
-        return max(self::MINIMAL_PROPERTY_SCORE, $score);
     }
 }

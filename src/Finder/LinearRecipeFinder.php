@@ -9,6 +9,8 @@ use Janmartendeboer\Soggy\Calculator\CalculatorInterface;
 use Janmartendeboer\Soggy\Pantry\Pantry;
 use Janmartendeboer\Soggy\Recipe\Ingredient;
 use Janmartendeboer\Soggy\Recipe\Recipe;
+use Janmartendeboer\Soggy\Recipe\Rule\HasVolumeRule;
+use Janmartendeboer\Soggy\Recipe\Rule\RuleInterface;
 use Measurements\Dimension;
 use Measurements\Measurement;
 use Measurements\Quantities\Volume;
@@ -22,7 +24,8 @@ final class LinearRecipeFinder implements RecipeFinderInterface
     public function __construct(
         private CalculatorInterface $calculator,
         private Measurement $targetVolume,
-        private Dimension $dimension
+        private Dimension $dimension,
+        private RuleInterface $rule = new HasVolumeRule()
     ) {}
 
     public function findRecipe(Pantry $pantry): ?Recipe
@@ -66,7 +69,7 @@ final class LinearRecipeFinder implements RecipeFinderInterface
                 );
             }
 
-            if ($recipe->getVolume()->value() > 0) {
+            if ($this->rule->passes($recipe)) {
                 yield $recipe;
             }
         }

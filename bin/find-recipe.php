@@ -5,12 +5,16 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
+use Janmartendeboer\Soggy\Calculator\CaloriesCalculator;
 use Janmartendeboer\Soggy\Calculator\LoggerCalculator;
 use Janmartendeboer\Soggy\Calculator\YummyCalculator;
 use Janmartendeboer\Soggy\Finder\LinearRecipeFinder;
 use Janmartendeboer\Soggy\Pantry\Pantry;
 use Janmartendeboer\Soggy\Recipe\Ingredient;
 use Janmartendeboer\Soggy\Recipe\IngredientMeasurement;
+use Janmartendeboer\Soggy\Recipe\Rule\ChainRule;
+use Janmartendeboer\Soggy\Recipe\Rule\ExactScoreRule;
+use Janmartendeboer\Soggy\Recipe\Rule\HasVolumeRule;
 use Measurements\Quantities\Volume;
 use Measurements\Units\UnitVolume;
 use Symfony\Component\Console\Logger\ConsoleLogger;
@@ -73,7 +77,15 @@ $calculator = new LoggerCalculator(
         new ConsoleOutput(OutputInterface::VERBOSITY_VERY_VERBOSE)
     )
 );
-$finder = new LinearRecipeFinder($calculator, $targetVolume, $dimension);
+$finder = new LinearRecipeFinder(
+    $calculator,
+    $targetVolume,
+    $dimension,
+    new ChainRule(
+        new HasVolumeRule(),
+        new ExactScoreRule(500, new CaloriesCalculator($dimension))
+    )
+);
 $result = $finder->findRecipe($pantry);
 
 if ($result === null) {
