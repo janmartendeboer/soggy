@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * @coversNothing
  */
-class WinningRecipeTest extends TestCase
+class ExampleRecipeTest extends TestCase
 {
     use AssertsVolume;
 
