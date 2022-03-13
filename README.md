@@ -4,13 +4,13 @@ Today, you set out on the task of perfecting your milk-dunking cookie recipe. Al
 
 Your recipe leaves room for exactly **100 teaspoons** of ingredients. You make a list of the remaining ingredients you could use to finish the recipe (your puzzle input) and their properties per teaspoon:
 
-| Property     | Description |
-|:-------------|:------------|
-| *capacity*   | How well it helps the cookie absorb milk. |
+| Property     | Description                                            |
+|:-------------|:-------------------------------------------------------|
+| *capacity*   | How well it helps the cookie absorb milk.              |
 | *durability* | How well it keeps the cookie intact when full of milk. |
-| *flavor*     | How tasty it makes the cookie. |
-| *texture*    | How it improves the feel of the cookie. |
-| *calories*   | How many calories it adds to the cookie. |
+| *flavor*     | How tasty it makes the cookie.                         |
+| *texture*    | How it improves the feel of the cookie.                |
+| *calories*   | How many calories it adds to the cookie.               |
 
 You can only measure ingredients in whole-teaspoon amounts accurately, and you have to be accurate so you can reproduce your results in the future. The total score of a cookie can be found by adding up each of the properties (negative totals become 0) and then multiplying together everything except calories.
 
@@ -52,10 +52,10 @@ Given the ingredients in your kitchen and their properties, what is the total sc
 
 | Ingredient   | Capacity | Durability | Flavor | Texture | Calories |
 |:-------------|---------:|-----------:|-------:|--------:|---------:|
-| Sprinkles    | `2`      | `0`        | `-2`   | `0`     | `3`      |
-| Butterscotch | `0`      | `5`        | `-3`   | `0`     | `3`      |
-| Chocolate    | `0`      | `0`        | `5`    | `-1`    | `8`      |
-| Candy        | `0`      | `-1`       | `0`    | `5`     | `8`      |
+| Sprinkles    |      `2` |        `0` |   `-2` |     `0` |      `3` |
+| Butterscotch |      `0` |        `5` |   `-3` |     `0` |      `3` |
+| Chocolate    |      `0` |        `0` |    `5` |    `-1` |      `8` |
+| Candy        |      `0` |       `-1` |    `0` |     `5` |      `8` |
 
 # Installation
 
