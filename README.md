@@ -56,3 +56,54 @@ Given the ingredients in your kitchen and their properties, what is the total sc
 | Butterscotch | `0`      | `5`        | `-3`   | `0`     | `3`      |
 | Chocolate    | `0`      | `0`        | `5`    | `-1`    | `8`      |
 | Candy        | `0`      | `-1`       | `0`    | `5`     | `8`      |
+
+# Installation
+
+In order to install the software to find the perfect milk-dunking cookie recipe,
+the following requirements must be met:
+
+- `PHP >= PHP 8.1` with `ext-json` enabled
+- `Composer 1.x or Composer 2.x`
+
+To install the dependencies, run:
+
+```bash
+composer install
+```
+
+# Usage
+
+If developer requirements are installed, simply running `vendor/bin/phpunit` will
+run all tests and verify the previously found recipe and score.
+
+To manually run the recipe finder, invoke `bin/find-recipe.php`. It is set to
+look for the meal replacement recipe. By removing or commenting the following
+line, the finder will also look for recipes that aren't exactly 500 calories.
+
+```php
+new ExactScoreRule(500, new CaloriesCalculator($dimension))
+```
+
+**N.B.:** The script has a logging mechanism enabled, that outputs a line for
+each recipe that gets its score calculated. This greatly impacts the speed at
+which the script can run, due communication with output buffers, terminal buffers
+and potentially even network layers. Do not assess the performance of the
+calculators and finders based on timing that script. Instead, try running the
+integration tests that document the found results, as documented under the next
+heading.
+
+# Results
+
+The found results are documented in:
+
+- `\Janmartendeboer\Soggy\Tests\Integration\FindRecipeTest`
+- `\Janmartendeboer\Soggy\Tests\Integration\FindMealReplacementTest`
+
+One can run them individually by invoking:
+
+- ```bash
+  vendor/bin/phpunit tests/Integration/FindRecipeTest.php
+  ```
+- ```bash
+  vendor/bin/phpunit tests/Integration/FindMealReplacementTest.php
+  ```
